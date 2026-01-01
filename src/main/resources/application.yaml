@@ -1,1 +1,19 @@
-spring.application.name=desafio_junior
+spring:
+  application:
+    name: desafio_junior
+
+  datasource:
+    url: ${DATABASE_URL}
+    driver-class-name: org.postgresql.Driver
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+
+  jpa:
+    #    hibernate:
+    #      ddl-auto: update
+    show-sql: true
+
+  flyway:
+    enabled: false
+    locations: classpath:db/migration
+    baseline-on-migrate: true
