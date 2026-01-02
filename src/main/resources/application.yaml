@@ -9,9 +9,9 @@ spring:
     password: ${DATABASE_PASSWORD}
 
   jpa:
-    #    hibernate:
-    #      ddl-auto: update
-    show-sql: true
+        hibernate:
+          ddl-auto: update
+        show-sql: true
 
   flyway:
     enabled: false
