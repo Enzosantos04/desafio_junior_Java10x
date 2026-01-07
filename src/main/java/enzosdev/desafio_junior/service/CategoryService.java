@@ -4,6 +4,8 @@ import enzosdev.desafio_junior.entity.Category;
 import enzosdev.desafio_junior.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
 
@@ -15,5 +17,10 @@ public class CategoryService {
 
     public Category createCategory(Category category){
        return categoryRepository.save(category);
+    }
+
+
+    public List<Category> listCategories(){
+        return categoryRepository.findAll();
     }
 }
