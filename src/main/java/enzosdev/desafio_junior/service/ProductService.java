@@ -7,6 +7,8 @@ import enzosdev.desafio_junior.repository.CategoryRepository;
 import enzosdev.desafio_junior.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductService {
 
@@ -26,5 +28,9 @@ public class ProductService {
 
         return productRepository.save(product);
 
+    }
+
+    public List<Product> productsByCategory(Long categoryId){
+        return productRepository.findByCategoryId(categoryId);
     }
 }
