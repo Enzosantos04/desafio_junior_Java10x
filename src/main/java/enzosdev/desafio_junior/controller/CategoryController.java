@@ -1,7 +1,9 @@
 package enzosdev.desafio_junior.controller;
 
 import enzosdev.desafio_junior.entity.Category;
+import enzosdev.desafio_junior.entity.Product;
 import enzosdev.desafio_junior.service.CategoryService;
+import enzosdev.desafio_junior.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +18,12 @@ public class CategoryController {
 
 
     private final CategoryService categoryService;
+    private final ProductService productService;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, ProductService productService) {
         this.categoryService = categoryService;
+        this.productService = productService;
     }
-
 
     @PostMapping("/categories")
     public ResponseEntity<Category> createCategory(@RequestBody Category category) {
@@ -34,4 +37,15 @@ public class CategoryController {
         return ResponseEntity.ok(categories);
 
     }
+
+    @GetMapping("/categories/{categoryId}/products")
+    public ResponseEntity<List<Product>> ProductsList(@PathVariable Long categoryId){
+        if(categoryService.findCategoryById(categoryId).isPresent()){
+            List<Product> products = productService.productsByCategory(categoryId);
+            return ResponseEntity.status(HttpStatus.OK).body(products);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
 }
