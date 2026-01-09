@@ -36,4 +36,11 @@ public class ProductController {
     }
 
 
+    @GetMapping("/products")
+    public ResponseEntity<List<Product>> findProducts(){
+        List<Product> products = productService.findAllProducts();
+        return ResponseEntity.ok(products);
+    }
+
+
 }
