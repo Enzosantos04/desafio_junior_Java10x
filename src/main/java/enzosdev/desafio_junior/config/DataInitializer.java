@@ -21,6 +21,8 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        categoryRepository.save(new Category(null, "Beverages"));
         productRepository.save(new Product(null, "Soft Drink", new BigDecimal("10"), new Category(null, "Beverages")));
+
     }
 }
