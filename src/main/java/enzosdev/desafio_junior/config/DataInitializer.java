@@ -5,9 +5,12 @@ import enzosdev.desafio_junior.entity.Product;
 import enzosdev.desafio_junior.repository.CategoryRepository;
 import enzosdev.desafio_junior.repository.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
+
+@Component
 public class DataInitializer implements CommandLineRunner {
 
     private final ProductRepository productRepository;
@@ -21,8 +24,8 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        categoryRepository.save(new Category(null, "Beverages"));
-        productRepository.save(new Product(null, "Soft Drink", new BigDecimal("10"), new Category(null, "Beverages")));
+       Category category = categoryRepository.save(new Category(null, "Beverages"));
+        productRepository.save(new Product(null, "Soft Drink", new BigDecimal("10"), category));
 
     }
 }
