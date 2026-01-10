@@ -24,8 +24,22 @@ public class DataInitializer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-       Category category = categoryRepository.save(new Category(null, "Beverages"));
-        productRepository.save(new Product(null, "Soft Drink", new BigDecimal("10"), category));
+       Category clothes = categoryRepository.save(new Category(null, "Clothes"));
+       Category games = categoryRepository.save(new Category(null, "Games"));
+        Product tshirt = new Product(null, "T-Shirt", new BigDecimal("30"), clothes);
+        Product shoes = new Product(null, "Shoes", new BigDecimal("30"), clothes);
+        Product dress = new Product(null, "Dress", new BigDecimal("30"), clothes);
+        Product game1= new Product(null, "Arc Raiders", new BigDecimal("30"), games);
+        Product game2= new Product(null, "God of War", new BigDecimal("30"), games);
+        Product game3= new Product(null, "Resident Evil", new BigDecimal("30"), games);
+
+
+        productRepository.save(tshirt);
+        productRepository.save(shoes);
+        productRepository.save(dress);
+        productRepository.save(game1);
+        productRepository.save(game2);
+        productRepository.save(game3);
 
     }
 }
