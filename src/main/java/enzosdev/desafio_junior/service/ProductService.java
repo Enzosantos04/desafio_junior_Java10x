@@ -8,6 +8,7 @@ import enzosdev.desafio_junior.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -37,5 +38,25 @@ public class ProductService {
 
     public List<Product> findAllProducts(){
         return productRepository.findAll();
+    }
+
+
+    public Product updateProductById(Long id, Product product){
+        Product existingProduct = productRepository.findById(id)
+                .orElseThrow(()-> new RuntimeException("Product not found"));
+        existingProduct.setName(product.getName());
+        existingProduct.setPrice(product.getPrice());
+
+        if (product.getCategory() != null && product.getCategory().getId() != null) {
+            Category category = categoryRepository.findById(product.getCategory().getId())
+                    .orElseThrow(() -> new RuntimeException("Category not found"));
+            existingProduct.setCategory(category);
+        }
+        return productRepository.save(existingProduct);
+    }
+
+
+    public Optional<Product> findProductById(Long id){
+        return productRepository.findById(id);
     }
 }
