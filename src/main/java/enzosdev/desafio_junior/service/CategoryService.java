@@ -35,4 +35,14 @@ public class CategoryService {
     }
 
 
+    public Category updateCategory(Long id, Category category){
+        Optional<Category> existingCategory = categoryRepository.findById(id);
+        if (existingCategory.isPresent()){
+           Category updatedCategory = categoryRepository.save(category);
+           updatedCategory.setId(id);
+           return categoryRepository.save(updatedCategory);
+        }
+
+        return null;
+    }
 }
