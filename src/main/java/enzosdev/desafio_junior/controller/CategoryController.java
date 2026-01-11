@@ -56,4 +56,14 @@ public class CategoryController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category Not Found");
         }
     }
+
+    @DeleteMapping("/categories/{id}")
+    public ResponseEntity<?> deleteCategoryById(@PathVariable Long id){
+        if (categoryService.findCategoryById(id).isPresent()){
+            categoryService.deleteCategoryById(id);
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product Not Found");
+        }
+    }
 }
