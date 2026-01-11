@@ -4,7 +4,6 @@ import enzosdev.desafio_junior.entity.Category;
 import enzosdev.desafio_junior.entity.Product;
 import enzosdev.desafio_junior.service.CategoryService;
 import enzosdev.desafio_junior.service.ProductService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -39,13 +38,22 @@ public class CategoryController {
     }
 
     @GetMapping("/categories/{categoryId}/products")
-    public ResponseEntity<List<Product>> ProductsList(@PathVariable Long categoryId){
+    public ResponseEntity<?> ProductsList(@PathVariable Long categoryId){
         if(categoryService.findCategoryById(categoryId).isPresent()){
             List<Product> products = productService.productsByCategory(categoryId);
             return ResponseEntity.status(HttpStatus.OK).body(products);
         }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category not found.");
         }
     }
 
+    @PutMapping("/categories/{id}")
+    public ResponseEntity<?> updateCategoryById(@PathVariable Long id, @RequestBody Category category){
+        if (categoryService.findCategoryById(id).isPresent()){
+            Category categoryUpdated = categoryService.updateCategoryById(id,category);
+            return ResponseEntity.status(HttpStatus.OK).body(categoryUpdated);
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category Not Found");
+        }
+    }
 }
