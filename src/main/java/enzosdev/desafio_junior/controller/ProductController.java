@@ -66,4 +66,14 @@ public class ProductController {
     }
 
 
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<?> deleteProductById(@PathVariable Long id){
+        if(productService.findProductById(id).isPresent()){
+            productService.deleteProductById(id);
+            return ResponseEntity.noContent().build();
+        }else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product Not Found");
+        }
+    }
+
 }
