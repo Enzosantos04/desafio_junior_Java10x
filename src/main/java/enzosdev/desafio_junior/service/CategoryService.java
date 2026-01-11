@@ -32,13 +32,8 @@ public class CategoryService {
 
 
     public Category updateCategoryById(Long id, Category category){
-        Optional<Category> existingCategory = categoryRepository.findById(id);
-        if (existingCategory.isPresent()){
-           Category updatedCategory = categoryRepository.save(category);
-           updatedCategory.setId(id);
-           return categoryRepository.save(updatedCategory);
-        }
-
-        return null;
+        Category existingCategory = categoryRepository.findById(id).orElseThrow(()-> new RuntimeException("Category Not Found"));
+        existingCategory.setName(category.getName());
+        return categoryRepository.save(existingCategory);
     }
 }
