@@ -1,9 +1,7 @@
 package enzosdev.desafio_junior.service;
 
 import enzosdev.desafio_junior.entity.Category;
-import enzosdev.desafio_junior.entity.Product;
 import enzosdev.desafio_junior.repository.CategoryRepository;
-import enzosdev.desafio_junior.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
