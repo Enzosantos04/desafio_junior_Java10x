@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("desafio/")
+@RequestMapping()
 public class ProductController {
 
     private final CategoryService categoryService;
@@ -48,7 +48,7 @@ public class ProductController {
 
     @GetMapping("/products/{id}")
     public ResponseEntity<?> findProductById(@PathVariable Long id){
-            Optional<Product> product = productService.findProductById(id);
+            Product product = productService.findProductById(id);
             return ResponseEntity.ok().body(product);
     }
 
