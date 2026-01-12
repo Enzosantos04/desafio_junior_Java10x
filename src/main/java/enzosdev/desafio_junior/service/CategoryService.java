@@ -31,8 +31,9 @@ public class CategoryService {
     }
 
 
-    public Optional<Category> findCategoryById(Long categoryId){
-        return categoryRepository.findById(categoryId);
+    public Category findCategoryById(Long categoryId){
+         return categoryRepository.findById(categoryId)
+                 .orElseThrow(()-> new CategoryNotFoundException("Category Not Found."));
     }
 
 
@@ -44,9 +45,11 @@ public class CategoryService {
 
 
     public void deleteCategoryById(Long id){
-        findCategoryById(id).orElseThrow(()-> new CategoryNotFoundException("Category Not Found"));
+        if (categoryRepository.findById(id).isPresent()){
         categoryRepository.deleteById(id);
-
+        }else{
+            throw new CategoryNotFoundException("Category Not Found.");
+        }
     }
 
 }
