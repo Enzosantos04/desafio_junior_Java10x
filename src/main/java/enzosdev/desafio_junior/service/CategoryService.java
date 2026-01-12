@@ -1,6 +1,7 @@
 package enzosdev.desafio_junior.service;
 
 import enzosdev.desafio_junior.entity.Category;
+import enzosdev.desafio_junior.exceptions.CategoryListEmptyException;
 import enzosdev.desafio_junior.exceptions.CategoryNameIsBlank;
 import enzosdev.desafio_junior.exceptions.CategoryNotFoundException;
 import enzosdev.desafio_junior.repository.CategoryRepository;
@@ -27,7 +28,11 @@ public class CategoryService {
 
 
     public List<Category> listCategories(){
-        return categoryRepository.findAll();
+        List<Category> categories = categoryRepository.findAll();
+        if (categories.isEmpty()){
+            throw new CategoryListEmptyException("Category list is empty at the moment.");
+        }
+        return categories;
     }
 
 
