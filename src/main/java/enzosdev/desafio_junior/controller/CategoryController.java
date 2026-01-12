@@ -56,4 +56,11 @@ public class CategoryController {
             categoryService.deleteCategoryById(id);
             return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/categories/{id}")
+    public ResponseEntity<?> findCategoryById(@PathVariable Long id){
+        Category category = categoryService.findCategoryById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(category);
+
+    }
 }
