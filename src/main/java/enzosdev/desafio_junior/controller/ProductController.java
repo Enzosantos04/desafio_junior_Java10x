@@ -27,13 +27,8 @@ public class ProductController {
 
     @PostMapping("/products")
     public ResponseEntity<Product> createProduct(@RequestParam Long categoryId, @RequestBody Product product){
-        if(categoryService.findCategoryById(categoryId).isPresent()){
             Product newProduct = productService.createProduct(categoryId, product);
             return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
     }
 
 
@@ -46,34 +41,22 @@ public class ProductController {
 
     @PatchMapping("/products/{id}")
     public ResponseEntity<?> updateProductById(@PathVariable Long id, @RequestBody Product product){
-        if (productService.findProductById(id).isPresent()){
             Product productUpdated = productService.updateProductById(id,product);
             return ResponseEntity.status(HttpStatus.OK).body(productUpdated);
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.");
-        }
     }
 
 
     @GetMapping("/products/{id}")
     public ResponseEntity<?> findProductById(@PathVariable Long id){
-        if(productService.findProductById(id).isPresent()){
             Optional<Product> product = productService.findProductById(id);
             return ResponseEntity.ok().body(product);
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product Not Found");
-        }
     }
 
 
     @DeleteMapping("/products/{id}")
     public ResponseEntity<?> deleteProductById(@PathVariable Long id){
-        if(productService.findProductById(id).isPresent()){
             productService.deleteProductById(id);
             return ResponseEntity.noContent().build();
-        }else{
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product Not Found");
-        }
     }
 
 }
