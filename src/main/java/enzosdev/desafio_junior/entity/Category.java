@@ -16,7 +16,6 @@ public class Category {
     private Long id;
 
     @Column(length = 255, nullable = false)
-    @NotBlank(message = "Category name should not be empty")
     private String name;
 
 
