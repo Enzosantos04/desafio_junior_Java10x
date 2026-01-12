@@ -42,6 +42,17 @@ public class ControllerExceptionHandler {
     }
 
 
+    @ExceptionHandler(ProductNameIsBlank.class)
+    public ResponseEntity<Map<String,String>> handleProductNameIsBlank(ProductNameIsBlank ex){
+        Map<String, String> response = new HashMap<>();
+        response.put("Error: ", ex.getMessage());
+        response.put("Message: ", "Product name must not be blank, try again.");
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+
+    }
+
+
+
 
 
 }
