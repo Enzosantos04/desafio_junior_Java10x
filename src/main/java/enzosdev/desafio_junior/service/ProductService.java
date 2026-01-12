@@ -64,13 +64,19 @@ public class ProductService {
     }
 
 
-    public Optional<Product> findProductById(Long id){
-        return productRepository.findById(id);
+    public Product findProductById(Long id){
+        return productRepository.findById(id)
+                .orElseThrow(()-> new ProductNotFoundException("Product Not Found."));
     }
 
 
     public void deleteProductById(Long id){
-        findProductById(id).orElseThrow(()-> new ProductNotFoundException("Product not found."));
-         productRepository.deleteById(id);
+        if (productRepository.findById(id).isPresent()){
+           productRepository.deleteById(id);
+        }else{
+         throw new ProductNotFoundException("Product Not Found.");
+        }
+
+
     }
 }
