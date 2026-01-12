@@ -4,6 +4,7 @@ package enzosdev.desafio_junior.service;
 import enzosdev.desafio_junior.entity.Category;
 import enzosdev.desafio_junior.entity.Product;
 import enzosdev.desafio_junior.exceptions.CategoryNotFoundException;
+import enzosdev.desafio_junior.exceptions.ProductListEmptyException;
 import enzosdev.desafio_junior.exceptions.ProductNameIsBlank;
 import enzosdev.desafio_junior.exceptions.ProductNotFoundException;
 import enzosdev.desafio_junior.repository.CategoryRepository;
@@ -45,7 +46,13 @@ public class ProductService {
 
 
     public List<Product> findAllProducts(){
-        return productRepository.findAll();
+
+        List<Product> products = productRepository.findAll();
+        if (products.isEmpty()){
+            throw new ProductListEmptyException("Product List is Empty at the moment.");
+        }
+
+        return products;
     }
 
 
