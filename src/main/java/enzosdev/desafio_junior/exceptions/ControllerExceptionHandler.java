@@ -17,7 +17,7 @@ public class ControllerExceptionHandler {
     public ResponseEntity<Map<String, String>> handleCategoryNotFound(CategoryNotFoundException ex){
         Map<String, String> response = new HashMap<>();
         response.put("Error: ", ex.getMessage());
-        response.put("Message: ", "Category Not Found.");
+        response.put("Message: ", "Category Not Found, Try again.");
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 
     }
