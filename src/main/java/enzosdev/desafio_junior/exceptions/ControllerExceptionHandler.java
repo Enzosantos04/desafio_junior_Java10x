@@ -51,6 +51,24 @@ public class ControllerExceptionHandler {
 
     }
 
+    @ExceptionHandler(CategoryListEmptyException.class)
+    public ResponseEntity<Map<String, String>> handleCategoryListEmptyException(CategoryListEmptyException ex){
+        Map<String, String> response = new HashMap<>();
+        response.put("Error: ", ex.getMessage());
+        response.put("Message: ", "Category list is empty. Try again");
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+
+    }
+
+    @ExceptionHandler(ProductListEmptyException.class)
+    public ResponseEntity<Map<String, String>> handleProductListEmptyException(ProductListEmptyException ex){
+        Map<String, String> response = new HashMap<>();
+        response.put("Error: ", ex.getMessage());
+        response.put("Message: ", "Product list is empty. Try again");
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+
+    }
+
 
 
 
