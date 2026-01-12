@@ -1,6 +1,8 @@
 package enzosdev.desafio_junior.service;
 
 import enzosdev.desafio_junior.entity.Category;
+import enzosdev.desafio_junior.exceptions.CategoryNameIsBlank;
+import enzosdev.desafio_junior.exceptions.CategoryNotFoundException;
 import enzosdev.desafio_junior.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,10 @@ public class CategoryService {
     }
 
     public Category createCategory(Category category){
-       return categoryRepository.save(category);
+        if(category.getName() == null || category.getName().isBlank()){
+            throw new CategoryNameIsBlank("Category name must not be blank");
+        }
+        return categoryRepository.save(category);
     }
 
 
@@ -32,13 +37,16 @@ public class CategoryService {
 
 
     public Category updateCategoryById(Long id, Category category){
-        Category existingCategory = categoryRepository.findById(id).orElseThrow(()-> new RuntimeException("Category Not Found"));
+        Category existingCategory = categoryRepository.findById(id).orElseThrow(()-> new CategoryNotFoundException("Category Not Found"));
         existingCategory.setName(category.getName());
         return categoryRepository.save(existingCategory);
     }
 
 
     public void deleteCategoryById(Long id){
+        findCategoryById(id).orElseThrow(()-> new CategoryNotFoundException("Category Not Found"));
         categoryRepository.deleteById(id);
+
     }
+
 }
