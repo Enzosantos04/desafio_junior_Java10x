@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("desafio/")
+@RequestMapping()
 public class CategoryController {
 
 
